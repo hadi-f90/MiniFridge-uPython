@@ -34,7 +34,7 @@ lcd.putstr("  Programmable\n Mini    Fridge")
 time.sleep_ms(3000)
 lcd.clear()
 gc.collect()
- 
+
 #Main Loop
 while True:
   clock = ds.datetime()
@@ -53,43 +53,41 @@ while True:
   lcd.putstr("\nTemp: %.2f"%(temp))
   lcd.putchar(chr(223))
   lcd.putstr("C")
-  gc.collect()  
-  f=open('time.txt')
-  tmset=f.read()
-  tlist=tmset.split(",")
-  shr=int(tlist[0])
-  smin=int(tlist[1])
-  ehr=int(tlist[2])  
-  emin=int(tlist[3])
-  f.close()
+  gc.collect()
+  with open('time.txt') as f:
+    tmset=f.read()
+    tlist=tmset.split(",")
+    shr=int(tlist[0])
+    smin=int(tlist[1])
+    ehr=int(tlist[2])
+    emin=int(tlist[3])
   xhr=int(clock[4])
   xmin=int(clock[5])
   gc.collect()
-  f=open('temp.txt')
-  tpset=f.read()
-  xtmp=int(tpset)
-  f.close()
+  with open('temp.txt') as f:
+    tpset=f.read()
+    xtmp=int(tpset)
   gc.collect()
- 
-  if shr<ehr:  # 0 -> 24
+
+  if shr<ehr:# 0 -> 24
     if (shr==xhr and smin==xmin) or (shr==xhr and smin<xmin): 
       if  temp > (xtmp + 2):
         relay.value(1)
       elif temp < xtmp:
-        relay.value(0)    
-    elif (shr<xhr and xhr<ehr):
+        relay.value(0)
+    elif shr < xhr < ehr:
       if  temp > (xtmp + 2):
         relay.value(1)
       elif temp < xtmp:
-        relay.value(0)   
+        relay.value(0)
     elif (ehr==xhr and emin==xmin) or (ehr==xhr and xmin<emin):
       if  temp > (xtmp + 2):
         relay.value(1)
       elif temp < xtmp:
-        relay.value(0)           
+        relay.value(0)
     else:
       relay.value(0) 
- 
+
 
   if shr>ehr or shr==ehr: #24 -> 0
     if (shr==xhr and smin==xmin) or (shr==xhr and smin<xmin): 
@@ -114,9 +112,9 @@ while True:
         relay.value(0)  
     else:
       relay.value(0)
-  
+
   gc.collect()
-  if sw.value()==0:  #Change Time and Temp Settings 
+  if sw.value()==0:#Change Time and Temp Settings 
     time.sleep_ms(500)
     if sw.value()==0:
       lcd.clear()
@@ -124,16 +122,14 @@ while True:
       start_hr,start_min,end_hr,end_min = menu.time_menu()
       f=open('time.txt','w')
       f.write('%d,%d,%d,%d'%(start_hr,start_min,end_hr,end_min))
-      f.close()
-      gc.collect()
     else:
       lcd.clear()
       time.sleep_ms(500)
-      temp=menu.temp_menu()    
+      temp=menu.temp_menu()
       f=open('temp.txt','w')
       f.write('%d' %temp)
-      f.close()
-      gc.collect()
+    f.close()
+    gc.collect()
   elif pb2.value()==0: #Dispay Current Settings YELLOW
     lcd.clear()
     if shr<10 and smin<10:

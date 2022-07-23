@@ -185,9 +185,9 @@ class DS1307(object):
 
         or disable the oscillator and output logic level high/low."""
 
-        rs0 = 1 if sqw == 4 or sqw == 32 else 0
+        rs0 = 1 if sqw in [4, 32] else 0
 
-        rs1 = 1 if sqw == 8 or sqw == 32 else 0
+        rs1 = 1 if sqw in [8, 32] else 0
 
         out = 1 if out > 0 else 0
 

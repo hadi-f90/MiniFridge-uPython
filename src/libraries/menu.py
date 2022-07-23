@@ -11,7 +11,7 @@ def set_htime():
   r = RotaryIRQ(pin_num_clk=14, pin_num_dt=13, min_val=0, max_val=23, reverse=True, range_mode=RotaryIRQ.RANGE_BOUNDED)
   lastval = r.value()
   while True:
-    val = r.value() 
+    val = r.value()
     if lastval != val:
       lastval = val
       lcd.move_to(0,1)
@@ -22,8 +22,7 @@ def set_htime():
       else:
         lcd.putstr("        %d:00 " %val)
     if sw.value()==0:
-      x=val
-      return x
+      return val
 
 def set_mtime(check,max,x):
   if check==x: 

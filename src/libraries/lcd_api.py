@@ -100,16 +100,10 @@ class LcdApi:
 
         self.num_lines = num_lines
 
-        if self.num_lines > 4:
-
-            self.num_lines = 4
-
+        self.num_lines = min(self.num_lines, 4)
         self.num_columns = num_columns
 
-        if self.num_columns > 40:
-
-            self.num_columns = 40
-
+        self.num_columns = min(self.num_columns, 40)
         self.cursor_x = 0
 
         self.cursor_y = 0

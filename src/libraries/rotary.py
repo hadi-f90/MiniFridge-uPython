@@ -157,7 +157,7 @@ class Rotary(object):
 
         direction = self._state & _DIR_MASK
 
-        
+
 
         incr = 0        
 
@@ -169,11 +169,11 @@ class Rotary(object):
 
             incr  = -1
 
-            
+
 
         incr *= self._reverse
 
-            
+
 
         if self._range_mode == self.RANGE_WRAP:
 

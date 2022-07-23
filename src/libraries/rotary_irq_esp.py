@@ -55,11 +55,11 @@ class RotaryIRQ(Rotary):
 
         else:
 
-            if not pin_num_clk in _esp8266_whitelist_pins:
+            if pin_num_clk not in _esp8266_whitelist_pins:
 
                 raise ValueError('%s: Pin %d not allowed. Whitelist: %s' % (platform, pin_num_dt,_esp8266_whitelist_pins))
 
-            if not pin_num_dt in _esp8266_whitelist_pins:
+            if pin_num_dt not in _esp8266_whitelist_pins:
 
                 raise ValueError('%s: Pin %d not allowed. Whitelist: %s' % (platform, pin_num_dt,_esp8266_whitelist_pins))            
 
